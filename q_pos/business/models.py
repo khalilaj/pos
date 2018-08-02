@@ -7,7 +7,7 @@ from ..core.models import StrictTimestamp
 
 
 class Business(StrictTimestamp):
-    merchant = models.ForeignKey(Account, on_delete=None, related_name="business")
+    merchant = models.ForeignKey(Account, on_delete=models.DO_NOTHING, blank=False)
     name = models.CharField(max_length=30, blank=False)
     nickname = models.CharField(max_length=30, blank=True)
     email = models.EmailField(blank=False)

@@ -15,7 +15,9 @@ class Product(StrictTimestamp):
     category = models.ForeignKey(Category, on_delete=None)
     unit_price = models.FloatField(default=0, blank=True)
     sale_price = models.FloatField(default=0)
-    isQuantified = models.BooleanField(default=False)
+    isQuantified = models.BooleanField(default=False, blank=True)
+    currentStock= models.IntegerField(default=False, blank=True)
+    minStock = models.IntegerField(default=False, blank=True)
 
     class Meta:
         verbose_name = _('product')

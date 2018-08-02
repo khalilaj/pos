@@ -1,8 +1,7 @@
 from rest_framework import serializers
 
 from ..sale.models import Sale, SaleProduct
-from ..product.models import Product
-from ..inventory.models import Inventory
+
 
 class SaleProductSerial(serializers.ModelSerializer):
     class Meta:
@@ -47,19 +46,15 @@ class SaleListCreateSerializer(serializers.ModelSerializer):
 
             productObj = product['productId']
             soldQuantity = product['quantity']
-            print(productObj)
             # # Check if product is quantify-able
             if productObj.isQuantified:
-                # Decrement Inventory if true
-                inventory = Inventory.objects.get(merchant=merchant, business=business, product=productObj)
                 #Get current product quantity
-                q = inventory.quantity
-                #change the quantity by decrementing the sold product quantity
-                inventory.quantity = q - soldQuantity
+                q = productObj.currentStock
+                # change the quantity by decrementing the sold product quantity
+                # Decrement Inventory if true
+                productObj.currentStock = q - soldQuantity
                 #save the inventory instance
-                inventory.save()
-
-
-
-
+                productObj.save()
+            else:
+                productObj.currentStock = None
         return sale

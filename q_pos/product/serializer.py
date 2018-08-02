@@ -17,7 +17,6 @@ class ProductListSerial(serializers.ModelSerializer):
         model = Product
         fields = "__all__"
         read_only_fields = ('id', 'merchant',)
-        extra_kwargs = {'isQuantified': {'write_only': True}}
 
     def create(self, validated_data):
         merchant = None

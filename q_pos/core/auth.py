@@ -54,7 +54,6 @@ def authenticate_credentials(token):
     :rtype: An Account object and token passed as arg
     """
 
-
     try:
         payload = jwt.decode(token, settings.SECRET_KEY)
     except:

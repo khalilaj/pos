@@ -8,6 +8,7 @@ class RetrieveUpdateSerial(serializers.ModelSerializer):
     class Meta:
         model = Business
         fields = ('id', 'name', 'nickname', 'email', 'location')
+        read_only_fields = ('id', 'merchant')
 
 
 class ListCreateSerial(serializers.ModelSerializer):
@@ -16,7 +17,7 @@ class ListCreateSerial(serializers.ModelSerializer):
     class Meta:
         model = Business
         fields = ('id', 'name', 'nickname', 'email', 'location')
-        read_only_fields = ('id',)
+        read_only_fields = ('id', 'merchant')
 
     def create(self, validated_data):
         merchant = None
