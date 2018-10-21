@@ -4,18 +4,17 @@ from .models import PaymentMethod
 
 
 class PaymentMethodRetrieveSerial(serializers.ModelSerializer):
-
-    class Meta:
-        model = PaymentMethod
-        fields = '__all__'
-        read_only_fields = ("id", "merchant",)
-
-class PaymentMethodListSerial(serializers.ModelSerializer):
-
     class Meta:
         model = PaymentMethod
         fields = "__all__"
-        read_only_fields = ("id", "merchant", )
+        read_only_fields = ("id", "merchant")
+
+
+class PaymentMethodListSerial(serializers.ModelSerializer):
+    class Meta:
+        model = PaymentMethod
+        fields = "__all__"
+        read_only_fields = ("id", "merchant")
 
     def create(self, validated_data):
         merchant = None

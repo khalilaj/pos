@@ -18,20 +18,22 @@ class Sale(StrictTimestamp):
     complete = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = _('sale')
-        verbose_name_plural = _('sales')
+        verbose_name = _("sale")
+        verbose_name_plural = _("sales")
 
 
 class SaleProduct(StrictTimestamp):
 
     merchant = models.ForeignKey(Account, on_delete=None, blank=False)
     business = models.ForeignKey(Business, on_delete=None, blank=False)
-    sale = models.ForeignKey(Sale, blank=False,  on_delete=models.CASCADE, related_name='products')
+    sale = models.ForeignKey(
+        Sale, blank=False, on_delete=models.CASCADE, related_name="products"
+    )
 
-    productId = models.ForeignKey(Product, on_delete=None,blank=False)
+    productId = models.ForeignKey(Product, on_delete=None, blank=False)
     quantity = models.FloatField(blank=False)
     total = models.FloatField(blank=False)
 
     class Meta:
-        verbose_name = _('sale-product')
-        verbose_name_plural = _('sale-products')
+        verbose_name = _("sale-product")
+        verbose_name_plural = _("sale-products")

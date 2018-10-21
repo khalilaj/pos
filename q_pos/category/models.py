@@ -12,8 +12,8 @@ class Category(StrictTimestamp):
     business = models.ForeignKey(Business, on_delete=None, blank=False)
 
     class Meta:
-        verbose_name = _('category')
-        verbose_name_plural = _('categories')
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
 
     def __str__(self):
         return "<Category name={} business={}>".format(self.name, self.business.name)

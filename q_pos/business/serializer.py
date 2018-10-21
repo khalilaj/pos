@@ -1,14 +1,13 @@
 from collections import OrderedDict
 from rest_framework import serializers
-from .models import Business
+from q_pos.business.models import Business
 
 
 class RetrieveUpdateSerial(serializers.ModelSerializer):
-
     class Meta:
         model = Business
-        fields = ('id', 'name', 'nickname', 'email', 'location')
-        read_only_fields = ('id', 'merchant')
+        fields = ("id", "name", "nickname", "email", "location")
+        read_only_fields = ("id", "merchant")
 
 
 class ListCreateSerial(serializers.ModelSerializer):
@@ -16,8 +15,8 @@ class ListCreateSerial(serializers.ModelSerializer):
 
     class Meta:
         model = Business
-        fields = ('id', 'name', 'nickname', 'email', 'location')
-        read_only_fields = ('id', 'merchant')
+        fields = ("id", "name", "nickname", "email", "location")
+        read_only_fields = ("id", "merchant")
 
     def create(self, validated_data):
         merchant = None

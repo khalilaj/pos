@@ -6,10 +6,7 @@ def core_exception_handler(exc, context):
 
     err = exception_handler(exc, context)
 
-    handlers = {
-        'Http404': handle_not_found,
-        'AuthenticationFailed': handle_generic
-    }
+    handlers = {"Http404": handle_not_found, "AuthenticationFailed": handle_generic}
 
     err_class = exc.__class__.__name__
 
@@ -21,16 +18,17 @@ def core_exception_handler(exc, context):
 
 def handle_generic(exc, context, err):
 
-    print({'d':err.data})
+    print({"d": err.data})
 
     return err
+
 
 def handle_not_found(exc, context, err):
 
     err.data = {
-        'errors': err.data['detail'],
-        'status_code':  err.status_code,
-        'ip': context['request'].META['REMOTE_ADDR']
+        "errors": err.data["detail"],
+        "status_code": err.status_code,
+        "ip": context["request"].META["REMOTE_ADDR"],
     }
 
     return err
@@ -38,4 +36,3 @@ def handle_not_found(exc, context, err):
 
 class UserNotAllowed(APIException):
     pass
-

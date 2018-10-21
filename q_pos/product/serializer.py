@@ -5,18 +5,17 @@ from .models import Product
 
 
 class ProductRetrieveSerial(serializers.ModelSerializer):
-
     class Meta:
         model = Product
         fields = "__all__"
-        read_only_fields = ('id', 'merchant',)
+        read_only_fields = ("id", "merchant")
+
 
 class ProductListSerial(serializers.ModelSerializer):
-
     class Meta:
         model = Product
         fields = "__all__"
-        read_only_fields = ('id', 'merchant',)
+        read_only_fields = ("id", "merchant")
 
     def create(self, validated_data):
         merchant = None

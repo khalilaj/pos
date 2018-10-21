@@ -3,7 +3,7 @@ from ..core.renderer import QuickieRenderer
 
 
 class AccountRenderer(QuickieRenderer):
-    object_name = 'user'
+    object_name = "user"
 
     def render(self, data, media_type=None, renderer_context=None):
         """
@@ -15,12 +15,12 @@ class AccountRenderer(QuickieRenderer):
         :rtype: A json object
         """
 
-        if 'errors' in data:
+        if "errors" in data:
             return super(AccountRenderer, self).render(data)
 
-        token = data['token'] if 'token' in data else None
+        token = data["token"] if "token" in data else None
 
         if token is not None and isinstance(token, bytes):
-            data['token'] = token.decode('utf-8')
+            data["token"] = token.decode("utf-8")
 
-        return json.dumps({self.object_name:data})
+        return json.dumps({self.object_name: data})

@@ -9,9 +9,9 @@ from .serializer import CategoryRetrieveSerial, CategoryListSerial
 
 class CategoryListCreate(ListCreateAPIView):
 
-    authentication_classes = (JwtAuth, )
+    authentication_classes = (JwtAuth,)
     renderer_classes = (CategoryRenderer,)
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)
     serializer_class = CategoryListSerial
 
     def get_queryset(self):
@@ -19,12 +19,11 @@ class CategoryListCreate(ListCreateAPIView):
 
 
 class CategoryRetrieve(RetrieveUpdateDestroyAPIView):
-    
-    authentication_classes = (JwtAuth, )
-    renderer_classes = (CategoryRenderer, )
-    permission_classes = (IsAuthenticated, )
+
+    authentication_classes = (JwtAuth,)
+    renderer_classes = (CategoryRenderer,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = CategoryRetrieveSerial
 
     def get_queryset(self):
         return Category.objects.filter(merchant=self.request.user.id)
-

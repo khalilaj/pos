@@ -8,15 +8,6 @@ from .sale.models import Sale
 from .payment_method.models import PaymentMethod
 
 
-models = [
-            Account,
-            Business,
-            Category,
-            Product,
-            Sale,
-            PaymentMethod,
-         ]
+models = [Account, Business, Category, Product, Sale, PaymentMethod]
 
 admin.site.register(models)
-
-

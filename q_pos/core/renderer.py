@@ -12,8 +12,8 @@ class QuickieRenderer(JSONRenderer):
             object_name = 'questions'
     """
 
-    charset = 'utf-8'
-    object_name = 'object'
+    charset = "utf-8"
+    object_name = "object"
 
     def render(self, data, accepted_media_type=None, renderer_context=None):
         """
@@ -27,7 +27,7 @@ class QuickieRenderer(JSONRenderer):
         """
 
         # If an error occurs delegate JSONRenderer to handle the error
-        if data and 'errors' in data:
+        if data and "errors" in data:
             return super(QuickieRenderer, self).render(data)
 
         return json.dumps({self.object_name: data})

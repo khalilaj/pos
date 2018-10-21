@@ -10,148 +10,341 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ('auth', '0009_alter_user_last_name_max_length'),
-    ]
+    dependencies = [("auth", "0009_alter_user_last_name_max_length")]
 
     operations = [
         migrations.CreateModel(
-            name='Account',
+            name="Account",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
-                ('created_at', models.DateTimeField(auto_now=True, verbose_name='date joined')),
-                ('updated_on', models.DateTimeField(auto_now_add=True, verbose_name='date modified')),
-                ('email', models.EmailField(max_length=254, unique=True, verbose_name='email address')),
-                ('username', models.CharField(max_length=30, unique=True, verbose_name='username')),
-                ('firstname', models.CharField(max_length=30)),
-                ('lastname', models.CharField(max_length=30)),
-                ('phone_number', models.CharField(max_length=15, validators=[django.core.validators.RegexValidator(message='  Up to 10 digits allowed.', regex='^\\+?1?\\d{10,15}$')])),
-                ('user_type', models.CharField(choices=[('MC', 'Merchant'), ('EMP', 'Employee'), ('AD', 'Admin')], max_length=10)),
-                ('is_active', models.BooleanField(default=True, verbose_name='active')),
-                ('is_staff', models.BooleanField(default=False, verbose_name='active')),
-                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
-                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("password", models.CharField(max_length=128, verbose_name="password")),
+                (
+                    "last_login",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="last login"
+                    ),
+                ),
+                (
+                    "is_superuser",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Designates that this user has all permissions without explicitly assigning them.",
+                        verbose_name="superuser status",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now=True, verbose_name="date joined"),
+                ),
+                (
+                    "updated_on",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="date modified"
+                    ),
+                ),
+                (
+                    "email",
+                    models.EmailField(
+                        max_length=254, unique=True, verbose_name="email address"
+                    ),
+                ),
+                (
+                    "username",
+                    models.CharField(
+                        max_length=30, unique=True, verbose_name="username"
+                    ),
+                ),
+                ("firstname", models.CharField(max_length=30)),
+                ("lastname", models.CharField(max_length=30)),
+                (
+                    "phone_number",
+                    models.CharField(
+                        max_length=15,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                message="  Up to 10 digits allowed.",
+                                regex="^\\+?1?\\d{10,15}$",
+                            )
+                        ],
+                    ),
+                ),
+                (
+                    "user_type",
+                    models.CharField(
+                        choices=[
+                            ("MC", "Merchant"),
+                            ("EMP", "Employee"),
+                            ("AD", "Admin"),
+                        ],
+                        max_length=10,
+                    ),
+                ),
+                ("is_active", models.BooleanField(default=True, verbose_name="active")),
+                ("is_staff", models.BooleanField(default=False, verbose_name="active")),
+                (
+                    "groups",
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text="The groups this user belongs to. A user will get all permissions granted to each of their groups.",
+                        related_name="user_set",
+                        related_query_name="user",
+                        to="auth.Group",
+                        verbose_name="groups",
+                    ),
+                ),
+                (
+                    "user_permissions",
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text="Specific permissions for this user.",
+                        related_name="user_set",
+                        related_query_name="user",
+                        to="auth.Permission",
+                        verbose_name="user permissions",
+                    ),
+                ),
+            ],
+            options={"verbose_name": "account", "verbose_name_plural": "accounts"},
+        ),
+        migrations.CreateModel(
+            name="Business",
+            fields=[
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now=True, verbose_name="date joined"),
+                ),
+                (
+                    "updated_on",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="date modified"
+                    ),
+                ),
+                ("name", models.CharField(max_length=30)),
+                ("nickname", models.CharField(blank=True, max_length=30)),
+                ("email", models.EmailField(max_length=254)),
+                ("location", models.CharField(blank=True, max_length=30)),
+                (
+                    "logo",
+                    models.FileField(
+                        blank=True, upload_to="", verbose_name="business-logo"
+                    ),
+                ),
+                (
+                    "merchant",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+            ],
+            options={"verbose_name": "business", "verbose_name_plural": "business"},
+        ),
+        migrations.CreateModel(
+            name="Category",
+            fields=[
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now=True, verbose_name="date joined"),
+                ),
+                (
+                    "updated_on",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="date modified"
+                    ),
+                ),
+                ("name", models.CharField(max_length=30)),
+                ("business", models.ForeignKey(on_delete=None, to="q_pos.Business")),
+                (
+                    "merchant",
+                    models.ForeignKey(on_delete=None, to=settings.AUTH_USER_MODEL),
+                ),
+            ],
+            options={"verbose_name": "category", "verbose_name_plural": "categories"},
+        ),
+        migrations.CreateModel(
+            name="PaymentMethod",
+            fields=[
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now=True, verbose_name="date joined"),
+                ),
+                (
+                    "updated_on",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="date modified"
+                    ),
+                ),
+                ("payment_name", models.CharField(max_length=30)),
+                ("business", models.ForeignKey(on_delete=None, to="q_pos.Business")),
+                (
+                    "merchant",
+                    models.ForeignKey(on_delete=None, to=settings.AUTH_USER_MODEL),
+                ),
             ],
             options={
-                'verbose_name': 'account',
-                'verbose_name_plural': 'accounts',
+                "verbose_name": "Payment Method",
+                "verbose_name_plural": "Payment Methods",
             },
         ),
         migrations.CreateModel(
-            name='Business',
+            name="Product",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now=True, verbose_name='date joined')),
-                ('updated_on', models.DateTimeField(auto_now_add=True, verbose_name='date modified')),
-                ('name', models.CharField(max_length=30)),
-                ('nickname', models.CharField(blank=True, max_length=30)),
-                ('email', models.EmailField(max_length=254)),
-                ('location', models.CharField(blank=True, max_length=30)),
-                ('logo', models.FileField(blank=True, upload_to='', verbose_name='business-logo')),
-                ('merchant', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now=True, verbose_name="date joined"),
+                ),
+                (
+                    "updated_on",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="date modified"
+                    ),
+                ),
+                ("name", models.CharField(max_length=30)),
+                ("unit_price", models.FloatField(blank=True, default=0)),
+                ("sale_price", models.FloatField(default=0)),
+                ("isQuantified", models.BooleanField(default=False)),
+                ("currentStock", models.IntegerField(blank=True, default=False)),
+                ("minStock", models.IntegerField(blank=True, default=False)),
+                (
+                    "business",
+                    models.ForeignKey(default=1, on_delete=None, to="q_pos.Business"),
+                ),
+                ("category", models.ForeignKey(on_delete=None, to="q_pos.Category")),
+                (
+                    "merchant",
+                    models.ForeignKey(on_delete=None, to=settings.AUTH_USER_MODEL),
+                ),
             ],
-            options={
-                'verbose_name': 'business',
-                'verbose_name_plural': 'business',
-            },
+            options={"verbose_name": "product", "verbose_name_plural": "products"},
         ),
         migrations.CreateModel(
-            name='Category',
+            name="Sale",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now=True, verbose_name='date joined')),
-                ('updated_on', models.DateTimeField(auto_now_add=True, verbose_name='date modified')),
-                ('name', models.CharField(max_length=30)),
-                ('business', models.ForeignKey(on_delete=None, to='q_pos.Business')),
-                ('merchant', models.ForeignKey(on_delete=None, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now=True, verbose_name="date joined"),
+                ),
+                (
+                    "updated_on",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="date modified"
+                    ),
+                ),
+                ("total", models.FloatField()),
+                ("discount", models.FloatField()),
+                ("paid", models.FloatField()),
+                ("change", models.FloatField()),
+                ("complete", models.BooleanField(default=True)),
+                ("business", models.ForeignKey(on_delete=None, to="q_pos.Business")),
+                (
+                    "merchant",
+                    models.ForeignKey(on_delete=None, to=settings.AUTH_USER_MODEL),
+                ),
             ],
-            options={
-                'verbose_name': 'category',
-                'verbose_name_plural': 'categories',
-            },
+            options={"verbose_name": "sale", "verbose_name_plural": "sales"},
         ),
         migrations.CreateModel(
-            name='PaymentMethod',
+            name="SaleProduct",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now=True, verbose_name='date joined')),
-                ('updated_on', models.DateTimeField(auto_now_add=True, verbose_name='date modified')),
-                ('payment_name', models.CharField(max_length=30)),
-                ('business', models.ForeignKey(on_delete=None, to='q_pos.Business')),
-                ('merchant', models.ForeignKey(on_delete=None, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now=True, verbose_name="date joined"),
+                ),
+                (
+                    "updated_on",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="date modified"
+                    ),
+                ),
+                ("quantity", models.FloatField()),
+                ("total", models.FloatField()),
+                ("business", models.ForeignKey(on_delete=None, to="q_pos.Business")),
+                (
+                    "merchant",
+                    models.ForeignKey(on_delete=None, to=settings.AUTH_USER_MODEL),
+                ),
+                ("productId", models.ForeignKey(on_delete=None, to="q_pos.Product")),
+                (
+                    "sale",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="products",
+                        to="q_pos.Sale",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Payment Method',
-                'verbose_name_plural': 'Payment Methods',
-            },
-        ),
-        migrations.CreateModel(
-            name='Product',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now=True, verbose_name='date joined')),
-                ('updated_on', models.DateTimeField(auto_now_add=True, verbose_name='date modified')),
-                ('name', models.CharField(max_length=30)),
-                ('unit_price', models.FloatField(blank=True, default=0)),
-                ('sale_price', models.FloatField(default=0)),
-                ('isQuantified', models.BooleanField(default=False)),
-                ('currentStock', models.IntegerField(blank=True, default=False)),
-                ('minStock', models.IntegerField(blank=True, default=False)),
-                ('business', models.ForeignKey(default=1, on_delete=None, to='q_pos.Business')),
-                ('category', models.ForeignKey(on_delete=None, to='q_pos.Category')),
-                ('merchant', models.ForeignKey(on_delete=None, to=settings.AUTH_USER_MODEL)),
-            ],
-            options={
-                'verbose_name': 'product',
-                'verbose_name_plural': 'products',
-            },
-        ),
-        migrations.CreateModel(
-            name='Sale',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now=True, verbose_name='date joined')),
-                ('updated_on', models.DateTimeField(auto_now_add=True, verbose_name='date modified')),
-                ('total', models.FloatField()),
-                ('discount', models.FloatField()),
-                ('paid', models.FloatField()),
-                ('change', models.FloatField()),
-                ('complete', models.BooleanField(default=True)),
-                ('business', models.ForeignKey(on_delete=None, to='q_pos.Business')),
-                ('merchant', models.ForeignKey(on_delete=None, to=settings.AUTH_USER_MODEL)),
-            ],
-            options={
-                'verbose_name': 'sale',
-                'verbose_name_plural': 'sales',
-            },
-        ),
-        migrations.CreateModel(
-            name='SaleProduct',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now=True, verbose_name='date joined')),
-                ('updated_on', models.DateTimeField(auto_now_add=True, verbose_name='date modified')),
-                ('quantity', models.FloatField()),
-                ('total', models.FloatField()),
-                ('business', models.ForeignKey(on_delete=None, to='q_pos.Business')),
-                ('merchant', models.ForeignKey(on_delete=None, to=settings.AUTH_USER_MODEL)),
-                ('productId', models.ForeignKey(on_delete=None, to='q_pos.Product')),
-                ('sale', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='products', to='q_pos.Sale')),
-            ],
-            options={
-                'verbose_name': 'sale-product',
-                'verbose_name_plural': 'sale-products',
+                "verbose_name": "sale-product",
+                "verbose_name_plural": "sale-products",
             },
         ),
         migrations.AlterUniqueTogether(
-            name='paymentmethod',
-            unique_together={('merchant', 'business', 'payment_name')},
+            name="paymentmethod",
+            unique_together={("merchant", "business", "payment_name")},
         ),
         migrations.AlterUniqueTogether(
-            name='business',
-            unique_together={('merchant', 'name', 'nickname')},
+            name="business", unique_together={("merchant", "name", "nickname")}
         ),
     ]

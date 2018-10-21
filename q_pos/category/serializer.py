@@ -4,18 +4,17 @@ from .models import Category
 
 
 class CategoryRetrieveSerial(serializers.ModelSerializer):
-
     class Meta:
         model = Category
-        fields = ('id', 'name', 'business', )
-        read_only_fields = ("id", "merchant",)
+        fields = ("id", "name", "business")
+        read_only_fields = ("id", "merchant")
 
 
 class CategoryListSerial(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'name', 'business', )
-        read_only_fields = ("id", "merchant",)
+        fields = ("id", "name", "business")
+        read_only_fields = ("id", "merchant")
 
     def create(self, validated_data):
         merchant = None

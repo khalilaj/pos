@@ -9,9 +9,9 @@ from .serializer import PaymentMethodRetrieveSerial, PaymentMethodListSerial
 
 class PaymentMethodListCreate(ListCreateAPIView):
 
-    authentication_classes = (JwtAuth, )
+    authentication_classes = (JwtAuth,)
     renderer_classes = (PaymentMethodRenderer,)
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         return PaymentMethod.objects.filter(merchant=self.request.user)
@@ -21,9 +21,9 @@ class PaymentMethodListCreate(ListCreateAPIView):
 
 class PaymentMethodRetrieve(RetrieveUpdateDestroyAPIView):
 
-    authentication_classes = (JwtAuth, )
-    renderer_classes = (PaymentMethodRenderer, )
-    permission_classes = (IsAuthenticated, )
+    authentication_classes = (JwtAuth,)
+    renderer_classes = (PaymentMethodRenderer,)
+    permission_classes = (IsAuthenticated,)
 
     queryset = PaymentMethod.objects.all()
     serializer_class = PaymentMethodRetrieveSerial

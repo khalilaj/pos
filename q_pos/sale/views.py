@@ -7,10 +7,10 @@ from .renderer import SaleRenderer, SaleItemRenderer
 from .serializer import SaleListCreateSerializer, SaleRetrieveSerializer
 
 
-class SalesListCreateView (ListCreateAPIView):
+class SalesListCreateView(ListCreateAPIView):
 
-    authentication_classes = (JwtAuth, )
-    permission_classes = (IsAuthenticated, )
+    authentication_classes = (JwtAuth,)
+    permission_classes = (IsAuthenticated,)
     renderer_classes = (SaleRenderer,)
     serializer_class = SaleListCreateSerializer
 
@@ -18,7 +18,7 @@ class SalesListCreateView (ListCreateAPIView):
         return Sale.objects.filter(merchant=self.request.user.id)
 
 
-class SaleRetrieveView (RetrieveUpdateDestroyAPIView):
+class SaleRetrieveView(RetrieveUpdateDestroyAPIView):
 
     authentication_classes = (JwtAuth,)
     permission_classes = (IsAuthenticated,)

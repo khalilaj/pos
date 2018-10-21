@@ -9,9 +9,9 @@ from .renderer import BusinessRenderer
 
 class BusinessListCreate(ListCreateAPIView):
 
-    authentication_classes = (JwtAuth, )
-    permission_classes = (IsAuthenticated, )
-    renderer_classes = (BusinessRenderer, )
+    authentication_classes = (JwtAuth,)
+    permission_classes = (IsAuthenticated,)
+    renderer_classes = (BusinessRenderer,)
     serializer_class = ListCreateSerial
 
     def get_queryset(self):
@@ -20,8 +20,8 @@ class BusinessListCreate(ListCreateAPIView):
 
 class BusinessRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):
 
-    authentication_classes = (JwtAuth, )
-    permission_classes = (IsAuthenticated, )
+    authentication_classes = (JwtAuth,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = RetrieveUpdateSerial
 
     def get_queryset(self):

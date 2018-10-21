@@ -6,4 +6,4 @@ class SaleRenderer(renderer.QuickieRenderer):
 
 
 class SaleItemRenderer(renderer.QuickieRenderer):
-    object_name = 'saleitems'
+    object_name = "saleitems"

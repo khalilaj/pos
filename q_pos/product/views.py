@@ -9,8 +9,8 @@ from .serializer import ProductRetrieveSerial, ProductListSerial
 
 class ProductListCreate(ListCreateAPIView):
 
-    authentication_classes = (JwtAuth, )
-    permission_classes = (IsAuthenticated, )
+    authentication_classes = (JwtAuth,)
+    permission_classes = (IsAuthenticated,)
     renderer_classes = (ProductRenderer,)
     serializer_class = ProductListSerial
 
@@ -19,10 +19,10 @@ class ProductListCreate(ListCreateAPIView):
 
 
 class ProductRetrieve(RetrieveUpdateDestroyAPIView):
-    
-    authentication_classes = (JwtAuth, )
-    renderer_classes = (ProductRenderer, )
-    permission_classes = (IsAuthenticated, )
+
+    authentication_classes = (JwtAuth,)
+    renderer_classes = (ProductRenderer,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = ProductRetrieveSerial
 
     def get_queryset(self):
@@ -31,5 +31,4 @@ class ProductRetrieve(RetrieveUpdateDestroyAPIView):
     def perform_destroy(self, instance):
         # print(instance.delete)
 
-                instance.delete()
-
+        instance.delete()

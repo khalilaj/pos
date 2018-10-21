@@ -7,7 +7,7 @@ from ..user.models import Account
 
 
 class JwtAuth(authentication.BaseAuthentication):
-    authentication_header_prefix = 'Token'
+    authentication_header_prefix = "Token"
 
     def authenticate(self, request):
         """ Authenticates every request
@@ -36,8 +36,8 @@ class JwtAuth(authentication.BaseAuthentication):
         if len(headers) > 2:
             return None
 
-        header_prefix = headers[0].decode('utf-8')
-        token = headers[1].decode('utf-8')
+        header_prefix = headers[0].decode("utf-8")
+        token = headers[1].decode("utf-8")
 
         if header_prefix.lower() != prefix:
             return None
@@ -61,7 +61,7 @@ def authenticate_credentials(token):
         raise exceptions.AuthenticationFailed(err)
 
     try:
-        account = Account.objects.get(pk=payload['id'])
+        account = Account.objects.get(pk=payload["id"])
     except Account.DoesNotExist:
         err = "Account not found"
         raise exceptions.AuthenticationFailed(err)

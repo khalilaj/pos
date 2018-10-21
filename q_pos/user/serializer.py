@@ -18,7 +18,17 @@ class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
 
-        fields = ('email', 'username', 'password', 'user_type', 'token', 'id', 'firstname', 'lastname','phone_number')
+        fields = (
+            "email",
+            "username",
+            "password",
+            "user_type",
+            "token",
+            "id",
+            "firstname",
+            "lastname",
+            "phone_number",
+        )
 
     def create(self, validate_data):
         return Account.objects.create_user(**validate_data)
@@ -38,8 +48,8 @@ class LoginSerializer(serializers.ModelSerializer):
         Validates the data passed to the login/
         """
 
-        email = data.get('email', None)
-        password = data.get('password', None)
+        email = data.get("email", None)
+        password = data.get("password", None)
 
         if email is None:
             raise NoEmailProvided
@@ -52,13 +62,39 @@ class LoginSerializer(serializers.ModelSerializer):
         if not account.is_active:
             raise UserNotActive
 
-        return {'id': account.id, 'email': account.email, 'user_type': account.user_type,'token': account.token, 'firstname': account.firstname,'lastname':account.lastname,'phone_number': account.phone_number,
-                 'username': account.username}
+        return {
+            "id": account.id,
+            "email": account.email,
+            "user_type": account.user_type,
+            "token": account.token,
+            "firstname": account.firstname,
+            "lastname": account.lastname,
+            "phone_number": account.phone_number,
+            "username": account.username,
+        }
 
     class Meta:
         model = Account
-        fields = ('id','email', 'password','user_type', 'username','firstname','lastname','phone_number','token', )
-        read_only_fields = ('id','token', 'user_type', 'username','firstname','lastname','phone_number',)
+        fields = (
+            "id",
+            "email",
+            "password",
+            "user_type",
+            "username",
+            "firstname",
+            "lastname",
+            "phone_number",
+            "token",
+        )
+        read_only_fields = (
+            "id",
+            "token",
+            "user_type",
+            "username",
+            "firstname",
+            "lastname",
+            "phone_number",
+        )
 
 
 class AccountSerializer(serializers.ModelSerializer):
@@ -66,11 +102,20 @@ class AccountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ('email', 'username', 'password', 'token', 'user_type','phone_number','firstname','lastname',)
-        read_only_fields = ('token',)
+        fields = (
+            "email",
+            "username",
+            "password",
+            "token",
+            "user_type",
+            "phone_number",
+            "firstname",
+            "lastname",
+        )
+        read_only_fields = ("token",)
 
     def update(self, instance, validate_data):
-        password = validate_data.pop('password', None)
+        password = validate_data.pop("password", None)
 
         for (key, value) in validate_data.items():
             setattr(instance, key, value)
@@ -86,16 +131,24 @@ class AccountSerializer(serializers.ModelSerializer):
 class AccountDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ('id','firstname','lastname','email', 'username', 'user_type','phone_number',)
+        fields = (
+            "id",
+            "firstname",
+            "lastname",
+            "email",
+            "username",
+            "user_type",
+            "phone_number",
+        )
 
 
 class AccountEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = '__all__'
+        fields = "__all__"
 
     def update(self, instance, validated_data):
-        password = validated_data.pop('password', None)
+        password = validated_data.pop("password", None)
 
         for (key, value) in validated_data.items():
             setattr(instance, key, value)

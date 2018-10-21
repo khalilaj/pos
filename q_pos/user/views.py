@@ -7,7 +7,12 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from .models import Account
 from .renderer import AccountRenderer
 from ..core.auth import JwtAuth
-from .serializer import RegistrationSerializer, LoginSerializer, AccountSerializer, AccountEditSerializer
+from .serializer import (
+    RegistrationSerializer,
+    LoginSerializer,
+    AccountSerializer,
+    AccountEditSerializer,
+)
 
 
 class RegistrationView(APIView):
@@ -30,7 +35,7 @@ class RegistrationView(APIView):
 
 class LoginView(APIView):
     authentication_classes = ()
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
     renderer_classes = (AccountRenderer,)
     serializer_class = LoginSerializer
 
@@ -44,9 +49,9 @@ class LoginView(APIView):
 
 class AccountRetrieveUpdateView(RetrieveUpdateAPIView):
 
-    authentication_classes = (JwtAuth, )
+    authentication_classes = (JwtAuth,)
     renderer_classes = (AccountRenderer,)
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)
     serializer_class = AccountSerializer
 
     def retrieve(self, request, *args, **kwargs):
@@ -54,7 +59,9 @@ class AccountRetrieveUpdateView(RetrieveUpdateAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def update(self, request, *args, **kwargs):
-        serializer = self.serializer_class(request.user, data=request.data, partial=True)
+        serializer = self.serializer_class(
+            request.user, data=request.data, partial=True
+        )
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -67,5 +74,4 @@ class AccountEdit(RetrieveUpdateAPIView):
     serializer_class = AccountEditSerializer
 
     def get_queryset(self):
-        return Account.objects.filter(pk=self.kwargs['pk'])
-
+        return Account.objects.filter(pk=self.kwargs["pk"])
