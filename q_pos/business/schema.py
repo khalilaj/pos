@@ -19,7 +19,7 @@ class BusinessConnection(relay.Connection):
 
 
 class Query(graphene.ObjectType):
-
+    all_businesses = graphene.List(BusinessNode);
     business = graphene.Field(BusinessNode, id=graphene.Int())
 
     all_businesses = relay.ConnectionField(BusinessConnection)
@@ -29,3 +29,32 @@ class Query(graphene.ObjectType):
 
     def resolve_all_businesses(self, info, **kwargs):
         return Business.objects.all()
+
+
+class AddBusiness(graphene.ClientIDMutation):
+    author = graphene.Field(BusinessNode)
+
+    class Input:
+        merchant = graphene.Int()
+        name = graphene.String()
+        nickname = graphene.String()
+        email = graphene.String()
+        location = graphene.String()
+        logo = graphene.String()
+
+    @classmethod
+    def mutate_and_get_payload(cls, input, context, info):
+        business = Business(
+            merchant=input.get('merchant'),
+            name=input.get('name'),
+            nickname=input.get('nickname'),
+            email=input.get('email'),
+            location=input.get('location'),
+            logo=input.get('logo'),
+        )
+        business.save()
+        return AddBusiness(business=business)
+
+
+class BusinessMutation(graphene.AbstractType):
+    add_Business = AddBusiness.Field()
