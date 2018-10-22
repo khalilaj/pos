@@ -17,7 +17,7 @@ class BusinessConnection(relay.Connection):
     class Meta:
         node = BusinessNode
 
-
+#Fetching data
 class Query(graphene.ObjectType):
     all_businesses = graphene.List(BusinessNode);
     business = graphene.Field(BusinessNode, id=graphene.Int())
@@ -30,7 +30,7 @@ class Query(graphene.ObjectType):
     def resolve_all_businesses(self, info, **kwargs):
         return Business.objects.all()
 
-
+#Adding Data
 class AddBusiness(graphene.ClientIDMutation):
     author = graphene.Field(BusinessNode)
 
