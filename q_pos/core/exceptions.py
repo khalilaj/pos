@@ -5,7 +5,7 @@ from rest_framework import status
 
 class ResourceDoesNotExist(APIException):
     status_code = status.HTTP_400_BAD_REQUEST
-    default_detail = 'Resource does not exist'
+    default_detail = "Resource does not exist"
 
 
 def core_exception_handler(exc, context):

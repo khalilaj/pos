@@ -58,7 +58,11 @@ class CreateBusiness(graphene.Mutation):
     def mutate(cls, info, account_id, name, email, nickname, location, logo):
 
         validate_email(email)
-        account = get_or_raise(Account, pk=account_id, error_msg="Account with id {} does not exist".format(account_id))
+        account = get_or_raise(
+            Account,
+            pk=account_id,
+            error_msg="Account with id {} does not exist".format(account_id),
+        )
 
         business = Business.objects.create(
             merchant=account,
