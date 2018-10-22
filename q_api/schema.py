@@ -7,4 +7,8 @@ class Query(schema.Query, graphene.ObjectType):
     debug = graphene.Field(DjangoDebug, name="__debug")
 
 
-schema = graphene.Schema(query=Query)
+class RootMutation(schema.BusinessMutation, graphene.ObjectType):
+    debug = graphene.Field(DjangoDebug, name="__debug")
+
+
+schema = graphene.Schema(query=Query, mutation=RootMutation)
