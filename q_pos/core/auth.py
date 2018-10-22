@@ -3,7 +3,7 @@ from django.conf import settings
 
 from rest_framework import authentication, exceptions
 
-from ..user.models import Account
+from django.contrib.auth import get_user_model
 
 
 class JwtAuth(authentication.BaseAuthentication):
@@ -61,7 +61,7 @@ def authenticate_credentials(token):
         raise exceptions.AuthenticationFailed(err)
 
     try:
-        account = Account.objects.get(pk=payload["id"])
+        account = get_user_model().objects.get(pk=payload["id"])
     except Account.DoesNotExist:
         err = "Account not found"
         raise exceptions.AuthenticationFailed(err)

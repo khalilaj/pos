@@ -1,13 +1,13 @@
-from q_pos.business import schema
+from q_pos.business import schema as business_schema
 import graphene
 from graphene_django.debug import DjangoDebug
 
 
-class Query(schema.Query, graphene.ObjectType):
+class Query(business_schema.Query, graphene.ObjectType):
     debug = graphene.Field(DjangoDebug, name="__debug")
 
 
-class RootMutation(schema.BusinessMutation, graphene.ObjectType):
+class RootMutation(business_schema.BusinessMutation, graphene.ObjectType):
     debug = graphene.Field(DjangoDebug, name="__debug")
 
 
