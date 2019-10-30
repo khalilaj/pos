@@ -4,7 +4,7 @@ cffi==1.11.5
 cryptography==1.9
 Django==2.0.5
 django-cors-headers==2.2.0
-djangorestframework==3.8.2
+djangorestframework==3.9.1
 freeze==1.0.10
 graphene==2.1.3
 graphene-django==2.2.0
