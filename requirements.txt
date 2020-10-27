@@ -1,7 +1,7 @@
 aniso8601==3.0.2
 asn1crypto==0.24.0
 cffi==1.11.5
-cryptography==1.9
+cryptography==3.2
 Django==2.0.5
 django-cors-headers==2.2.0
 djangorestframework==3.8.2
